@@ -1,4 +1,4 @@
-#!/home/ed/Dev/Python/Flask/watchlist/virtual/bin/python3
+#!/home/ed/Dev/Python/Flask/watchlist/virtual/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
