@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for
+from flask_login import login_required
 from . import main
 from ..request import get_movies, get_movie, search_movie
 from .forms import ReviewForm
@@ -6,6 +7,7 @@ from ..models import Review
 
 
 @main.route('/', methods=['GET'])
+@login_required
 def index():
     """
     View root page function that returns the index page and its data
@@ -24,6 +26,7 @@ def index():
 
 
 @main.route('/movies/<int:movie_id>', methods=['GET'])
+@login_required
 def movies(movie_id):
     """
     View movie page function that returns the movie details page and its data
@@ -34,6 +37,7 @@ def movies(movie_id):
 
 
 @main.route('/movie/<int:movie_id>')
+@login_required
 def movie(movie_id):
     """
     View movie page function that returns the movie details page and its data
@@ -47,6 +51,7 @@ def movie(movie_id):
 
 
 @main.route('/search/<movie_name>')
+@login_required
 def search(movie_name):
     """
     View function to display the search results
@@ -59,6 +64,7 @@ def search(movie_name):
 
 
 @main.route('/movie/review/new/<int:id>', methods=['GET', 'POST'])
+@login_required
 def new_review(id):
     form = ReviewForm()
     movie = get_movie(id)
