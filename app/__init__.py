@@ -2,9 +2,11 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from config import config_options
 from flask_bootstrap import Bootstrap
+from flask_migrate import Migrate
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
+migrate = Migrate()
 
 
 def create_app(config_name):
@@ -18,6 +20,9 @@ def create_app(config_name):
 
     # initialize SQLAlchemy
     db.init_app(app)
+
+    # initialize flask-migrate
+    migrate.init_app(app, db)
 
     # Initializing flask extensions
     bootstrap.init_app(app)
