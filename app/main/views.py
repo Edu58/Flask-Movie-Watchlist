@@ -1,9 +1,10 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required
+from .. import db
 from . import main
 from ..request import get_movies, get_movie, search_movie
-from .forms import ReviewForm
-from ..models import Review
+from .forms import ReviewForm, Updateprofile
+from ..models import Review, User
 
 
 @main.route('/', methods=['GET'])
@@ -78,3 +79,35 @@ def new_review(id):
 
     title = f'{movie.title} review'
     return render_template('new_review.html', title=title, review_form=form, movie=movie)
+
+
+@main.route('/profile/<username>')
+@login_required
+def profile(username):
+    user = User.query.filter_by(username=username).first()
+
+    if user is None:
+        abort(404)
+
+    return render_template('profile/profile.html', user=user)
+
+
+@main.route('/profile/<username>/update', methods=['GET', 'POST'])
+@login_required
+def updateprofile(username):
+    user = User.query.filter_by(username=username).first()
+
+    if user is None:
+        abort(404)
+
+    form = Updateprofile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('main.profile', username=username))
+
+    return render_template('profile/update.html', form=form)

@@ -9,16 +9,13 @@
                 </button>
                 <a class="navbar-brand" href="/"> Watchlist </a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/">Home</a></li>
-                </ul>
+            <div class="navbar-collapse collapse navbar-right">
                 {% if current_user.is_authenticated %}
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('main.index') }}">Home</a></li>
-                </ul>
-                <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    <li><a>{{ current_user.username }}</a></li>
+                    <li><a href="{{ url_for('main.profile', username=current_user.username) }}">Profile</a></li>
                 </ul>
                 {% else %}
                 <ul class="nav navbar-nav">

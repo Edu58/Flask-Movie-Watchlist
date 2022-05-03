@@ -4,6 +4,11 @@ from wtforms.validators import DataRequired
 
 
 class ReviewForm(FlaskForm):
-    title = StringField('Review title', validators=[DataRequired()])
-    review = TextAreaField('Movie review', validators=[DataRequired()])
+    title = StringField('Movie title', validators=[DataRequired()])
+    review = TextAreaField('Your review', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+class Updateprofile(FlaskForm):
+    bio = StringField('About You', validators=[DataRequired()])
     submit = SubmitField('Submit')

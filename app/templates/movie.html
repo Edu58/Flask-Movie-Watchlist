@@ -2,38 +2,28 @@
 {% import 'macros.html' as macro%}
 <!-- Content block -->
 {% block content %}
-<div class="container">
+<div class="d-flex flex-column text-center">
 
-    <!-- Poster background -->
-    <div class="row">
-<!--        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 posterPath" style="background: url({{movie.poster}}) no-repeat center center">-->
-        <img src="{{ movie.poster }}" style="max-height: 50rem" loading="lazy">
+    <div style="max-height: 60%;">
+         <img src="{{ movie.poster }}" style="max-height: 50rem" loading="lazy">
+
+        <div>
+            <h3>{{ movie.title }}</h3>
+                <p class="overview"> {{ movie.overview }}</p>
+                <p class="ratings"> Rating - <b> {{ movie.vote_average }}</b> out of <i>{{ movie.vote_count}} votes </i> </p>
+        </div>
     </div>
 
-        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
-            <h3>{{ movie.title }}</h3>
-
-            <p class="overview"> {{ movie.overview }}</p>
-            <p class="ratings"> <b> {{ movie.vote_average }}</b> - <i>{{ movie.vote_count}} votes </i> </p>
-
-            <a class="ratings" href="/movie/review/new/{{movie.id}}"> Write a new review</a>
-
-        </div>
-
-    <div class="row">
-
-        <h1>Reviews</h1>
-        <hr>
-
+    <div style="margin-top: 5rem;">
+        <h3>Reviews</h3>
         {% if reviews %}
             {{macro.displayReviews(reviews)}}
 
         {% else%}
-            <h3 class="text-center">This movie has no reviews </h3>
+            <p class="text-center">This movie has no reviews </p>
 
-            <a class="btn btn-success btn-lg text-center" href="/movie/review/new/{{movie.id}}"> Write a new review</a>
+            <a class="btn btn-success text-center" href="/movie/review/new/{{movie.id}}"> Write a new review</a>
         {% endif %}
-
     </div>
 
 </div>
