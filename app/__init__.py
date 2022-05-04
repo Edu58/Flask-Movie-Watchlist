@@ -1,11 +1,13 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from config import config_options
 from flask_bootstrap import Bootstrap
-from flask_migrate import Migrate
 from flask_login import LoginManager
-from flask_uploads import UploadSet, configure_uploads, IMAGES
 from flask_mail import Mail
+from flask_migrate import Migrate
+from flask_simplemde import SimpleMDE
+from flask_sqlalchemy import SQLAlchemy
+from flask_uploads import UploadSet, configure_uploads, IMAGES
+
+from config import config_options
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -15,6 +17,7 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 photos = UploadSet('photos', IMAGES)
 mail = Mail()
+simple = SimpleMDE()
 
 
 def create_app(config_name):
@@ -40,6 +43,9 @@ def create_app(config_name):
 
     # initialize flask-mail
     mail.init_app(app)
+
+    # Initialize flask-simplemde
+    simple.init_app(app)
 
     # Initializing flask extensions
     bootstrap.init_app(app)

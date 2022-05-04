@@ -5,7 +5,7 @@ from app import create_app, db
 from app.models import User, Role, Review
 
 # Create app instance
-app = create_app('testing')
+app = create_app('development')
 manager = Manager(app)
 manager.add_command('server', Server)
 

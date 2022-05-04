@@ -6,20 +6,25 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block styles %}
+    {{ super() }}
+    {{simplemde.css}}
+    {{simplemde.js}}
+    {% endblock %}
     <title>Watchlist</title>
 </head>
 <body>
 
-    <!-- Navbar block  -->
-    {% block navbar %}
-        {% include 'navbar.html' %}
-    {% endblock %}
+<!-- Navbar block  -->
+{% block navbar %}
+{% include 'navbar.html' %}
+{% endblock %}
 
-     <!-- Content block -->
+<!-- Content block -->
 
-    {% block content %}
+{% block content %}
 
-    {% endblock%}
+{% endblock%}
 <p class="text-center">Copyright &copy; 2022 Watchlist</p>
 </body>
 </html>

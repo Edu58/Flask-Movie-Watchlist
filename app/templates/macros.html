@@ -23,7 +23,11 @@
     <ol>
         {% for review in review_list %}
         <li>
-            {{ review.movie_review }}
+            <div>
+                <p>{{review.user.username}}</p>
+                <p>{{ review.movie_review }}</p>
+            </div>
+
         </li>
         {% endfor %}
     </ol>

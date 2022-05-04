@@ -1,3 +1,4 @@
+import markdown2
 from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required, current_user
 
@@ -126,3 +127,14 @@ def upload_profile_pic(username):
         db.session.commit()
 
     return redirect(url_for('main.profile', username=username))
+
+
+@main.route('/review/<int:id>')
+@login_required
+def single_review(id):
+    review = Review.query.get(id)
+    if review is None:
+        abort(404)
+
+    format_review = markdown2.markdown(review.movie_review, extras=['code-friendly', 'fenced-code-blocks'])
+    return render_template('review.html', review='review', format_review=format_review)
