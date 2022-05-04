@@ -2,27 +2,28 @@
 {% import 'macros.html' as macro%}
 <!-- Content block -->
 {% block content %}
-<div class="d-flex flex-column text-center">
+<div class="container d-flex flex-column text-center">
 
     <div style="max-height: 60%;">
-         <img src="{{ movie.poster }}" style="max-height: 50rem" loading="lazy">
+        <img src="{{ movie.poster }}" style="max-height: 50rem" loading="lazy">
 
         <div>
             <h3>{{ movie.title }}</h3>
-                <p class="overview"> {{ movie.overview }}</p>
-                <p class="ratings"> Rating - <b> {{ movie.vote_average }}</b> out of <i>{{ movie.vote_count}} votes </i> </p>
+            <p class="overview" style="margin-bottom: 2rem;"> {{ movie.overview }}</p>
+            <p class="ratings"> Rating - <b> {{ movie.vote_average }}</b> out of <i>{{ movie.vote_count}} votes </i></p>
         </div>
     </div>
 
-    <div style="margin-top: 5rem;">
+    <hr>
+
+    <div style="margin-top: 5rem;" class="container text-left">
         <h3>Reviews</h3>
         {% if reviews %}
-            {{macro.displayReviews(reviews)}}
-
+        {{macro.displayReviews(reviews)}}
         {% else%}
-            <p class="text-center">This movie has no reviews </p>
+        <p class="text-center">This movie has no reviews </p>
 
-            <a class="btn btn-success text-center" href="/movie/review/new/{{movie.id}}"> Write a new review</a>
+        <a class="btn btn-success text-center" href="/movie/review/new/{{movie.id}}"> Write a new review</a>
         {% endif %}
     </div>
 

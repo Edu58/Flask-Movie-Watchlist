@@ -5,6 +5,7 @@ from flask_bootstrap import Bootstrap
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_uploads import UploadSet, configure_uploads, IMAGES
+from flask_mail import Mail
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -13,6 +14,7 @@ login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
 photos = UploadSet('photos', IMAGES)
+mail = Mail()
 
 
 def create_app(config_name):
@@ -35,6 +37,9 @@ def create_app(config_name):
 
     # Initialize flask-uploads
     configure_uploads(app, photos)
+
+    # initialize flask-mail
+    mail.init_app(app)
 
     # Initializing flask extensions
     bootstrap.init_app(app)

@@ -6,7 +6,7 @@
         <div class="thumbnail">
             <img src="{{ movie.poster }}" alt="{{ movie.title }}" style="max-height: 35rem; width: auto;">
             <div class="caption text-center">
-                <p>{{ movie.title }}</p>
+                <p style="font-size: 2rem; font-weight: bold; word-wrap: normal;">{{ movie.title }}</p>
                 <p><a href="/movie/{{movie.id}}" class="btn btn-primary" role="button">More</a></p>
             </div>
         </div>
@@ -19,10 +19,13 @@
 
 <!-- Displaying reviews macro -->
 {% macro displayReviews(review_list) %}
-    {% for review in review_list %}
-    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
-        <h2> {{ review.title}} </h2>
-        <p> {{ review.review | truncate(30) }}</p>
-    </div>
-    {% endfor %}
+<div>
+    <ol>
+        {% for review in review_list %}
+        <li>
+            {{ review.movie_review }}
+        </li>
+        {% endfor %}
+    </ol>
+</div>
 {% endmacro %}

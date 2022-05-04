@@ -8,7 +8,7 @@
   <div style="margin-bottom: 4rem;">
 
     {% if user.profile_pic_path %}
-    <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+    <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail" style="max-height: 12rem; width: auto;">
     {%else%}
     <p style="width: 15rem; height: 15rem; margin: auto; border-radius: 50%; background-color: gray;"></p>
     {% endif %}

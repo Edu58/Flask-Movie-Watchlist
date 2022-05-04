@@ -5,6 +5,7 @@ from .forms import SignUpForm, LoginForm
 from flask_login import login_user, login_required, logout_user
 from ..models import User
 from app import db
+from ..email import send_email
 
 
 @auth.route('/login', methods=['GET', 'POST'])
@@ -30,6 +31,9 @@ def signup():
         user = User(email=form.email.data, username=form.username.data, password=form.password.data)
         db.session.add(user)
         db.session.commit()
+
+        send_email("Welcome to watchlist", "email/welcome_user", user.email, user=user)
+
         return redirect(url_for('auth.login'))
 
     return render_template('auth/signup.html', signup=form)

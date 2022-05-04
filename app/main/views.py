@@ -1,10 +1,11 @@
 from flask import render_template, request, redirect, url_for, abort
-from flask_login import login_required
-from .. import db, photos
+from flask_login import login_required, current_user
+
 from . import main
-from ..request import get_movies, get_movie, search_movie
 from .forms import ReviewForm, Updateprofile
+from .. import db, photos
 from ..models import Review, User
+from ..request import get_movies, get_movie, search_movie
 
 
 @main.route('/', methods=['GET'])
@@ -46,8 +47,7 @@ def movie(movie_id):
 
     the_movie = get_movie(movie_id)
     title = f'{the_movie.title}'
-    movie_reviews = Review.get_reviews(the_movie.id)
-
+    movie_reviews = Review.get_reviews(movie_id)
     return render_template('movie.html', title=title, movie=the_movie, reviews=movie_reviews)
 
 
@@ -73,9 +73,10 @@ def new_review(id):
     if form.validate_on_submit():
         title = form.title.data
         review = form.review.data
-        new_review = Review(movie.id, title, movie.poster, review)
+        new_review = Review(movie_id=movie.id, movie_title=title, image_path=movie.poster, movie_review=review,
+                            user=current_user)
         new_review.save_review()
-        return redirect(url_for('movie', movie_id=movie.id))
+        return redirect(url_for('main.movie', movie_id=movie.id))
 
     title = f'{movie.title} review'
     return render_template('new_review.html', title=title, review_form=form, movie=movie)
@@ -113,7 +114,7 @@ def updateprofile(username):
     return render_template('profile/update.html', form=form)
 
 
-@main.route('/user/<username>/update-profile-pic', methods=['GET', 'POST'])
+@main.route('/user/<username>/update-profile-pic', methods=['POST'])
 @login_required
 def upload_profile_pic(username):
     user = User.query.filter_by(username=username).first()
