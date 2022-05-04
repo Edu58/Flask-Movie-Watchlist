@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, abort
 from flask_login import login_required
-from .. import db
+from .. import db, photos
 from . import main
 from ..request import get_movies, get_movie, search_movie
 from .forms import ReviewForm, Updateprofile
@@ -111,3 +111,17 @@ def updateprofile(username):
         return redirect(url_for('main.profile', username=username))
 
     return render_template('profile/update.html', form=form)
+
+
+@main.route('/user/<username>/update-profile-pic', methods=['GET', 'POST'])
+@login_required
+def upload_profile_pic(username):
+    user = User.query.filter_by(username=username).first()
+
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+
+    return redirect(url_for('main.profile', username=username))

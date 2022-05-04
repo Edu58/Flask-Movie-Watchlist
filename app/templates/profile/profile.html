@@ -14,6 +14,14 @@
     {% endif %}
   </div>
 
+        {% if user == current_user %}
+            <form action="{{url_for('main.upload_profile_pic',username=user.username)}}" method="POST" enctype = "multipart/form-data" style="max-width: 40%; margin: auto;">
+
+                <input type="file"  name="photo" class="form-control" required>
+                <input type="submit" class="btn btn-primary" style="margin-top: 2rem;">
+            </form>
+          {% endif %}
+
     <div>
         <h3> {{user.username| capitalize}} </h3>
 

@@ -1,4 +1,0 @@
-export MOVIE_API_KEY="fe3d5322ad053d9d838750816d0f9d0a"
-export SECRET_KEY="dfjhe45u3452389r7w89eufha39u4y278ewdGUHfuyTR65YF67R67fgdf"
-
-python3.8 run.py server
